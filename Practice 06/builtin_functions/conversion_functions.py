@@ -1,0 +1,8 @@
+print(int("10"))
+print(float("3.14"))
+print(str(100))
+print(bool(1))
+print(list("abc"))
+print(tuple([1, 2, 3]))
+print(dict(a=1, b=2))
+print(set([1, 1, 2, 3]))
