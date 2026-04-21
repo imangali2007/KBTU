@@ -1,172 +1,110 @@
-# Practice 7: Game Development with Pygame - Part 1
+# Practice 7: Python & PostgreSQL, PhoneBook
 
 ## 1. Objective
 
-This practice introduces game development using Pygame. You will learn graphics, input handling, and animations by creating three classic games. This part focuses on basic concepts and implementation.
+This practice focuses on integrating Python with PostgreSQL. You will design a relational database schema, connect to it from Python using `psycopg2`, and implement a console-based PhoneBook application that supports inserting, querying, updating, and deleting contacts.
 
 ---
 
-## 2. Resources and Learning
+## 2. Key Concepts
 
-Start with the following tutorials:
+| Abbreviation | Stands for | Meaning |
+|---|---|---|
+| **DB** | Database | Used to store structured information (data) |
+| **RDB** | Relational Database | Data is stored in **tables** (also called *relations*), structured in **rows** and **columns** (also called *records* and *fields*). A record represents one entity; fields represent its individual data items. |
+| **RDBMS** | Relational Database Management System | Software needed to create and work with an RDB |
+| **SQL** | Structured Query Language | The language used to communicate with an RDBMS |
+| **CRUD** | Create, Read, Update, Delete | The four basic operations on data (rows, not tables) |
 
-🔗 **Nerd Paradise Pygame Tutorial**: [https://nerdparadise.com/programming/pygame](https://nerdparadise.com/programming/pygame)
+**CRUD ↔ SQL mapping**:
 
-**Topics to Study**:
-- Getting Started with Pygame
-- Working with Images
-- Music and Sound Effects
-- Geometric Drawing
-- Fonts and Text
-- More on Input (Keyboard, Mouse, Joystick)
+| CRUD operation | SQL keyword |
+|---|---|
+| Create | `INSERT` |
+| Read | `SELECT` |
+| Update | `UPDATE` |
+| Delete | `DELETE` |
+
+**SQL is a declarative language** - you describe *what* you want, not *how* to do it (unlike imperative languages like C++, Java, Python, etc.).
+
+**PostgreSQL** is an ORDBMS (Object-Relational DBMS) that uses its own dialect of SQL. We will use it as our database engine in this practice.
+
+**Installing PostgreSQL**: follow the steps at https://www.w3schools.com/postgresql/postgresql_install.php
+
+**psycopg2** is the Python module that lets us work with PostgreSQL. Install it by running:
+```bash
+pip install psycopg2
+```
+(you may need to use `pip3` instead of `pip` and/or `psycopg2-binary` instead of `psycopg2`)
 
 ---
 
 ## 3. Tasks
 
-### 3.1 Mickey's Clock Application
+### 3.1 Learn from PostgreSQL Tutorial
 
-**Objective**: Create a digital-style clock using Mickey Mouse hand graphics
+Read the PostgreSQL + Python tutorial to understand how to connect and work with a database from Python:
 
-**Requirements**:
-1. Display current system time (minutes and seconds only)
-2. Use Mickey Mouse's hands as clock hands
-   - Right hand = minutes hand
-   - Left hand = seconds hand
-3. Synchronize with system clock in real-time
-4. Update display every second
+🔗 **PostgreSQL Python Tutorial**: https://neon.com/postgresql/postgresql-python
 
-**Implementation Tips**:
-- Use `pygame.transform.rotate()` to rotate hands
-- Reference: [StackOverflow - Rotating Graphics](https://stackoverflow.com/a/54714144)
-- Calculate rotation angles based on current time
-- Handle edge cases (leap seconds, etc.)
-
-**Repository Structure**:
-```
-Practice7/
-├── mickeys_clock/
-│   ├── main.py
-│   ├── clock.py
-│   ├── images/
-│   │   └── mickey_hand.png
-│   └── README.md
-```
+**Topics to cover**:
+- Installing and configuring PostgreSQL
+- Connecting to PostgreSQL from Python (`psycopg2`)
+- Creating tables
+- Inserting rows (single and batch)
+- Querying data with `SELECT`
+- Updating existing rows
+- Deleting rows
+- Handling transactions and error recovery
 
 ---
 
-### 3.2 Music Player with Keyboard Controller
+### 3.2 Practical Exercise: PhoneBook
 
-**Objective**: Build an interactive music player with keyboard controls
+Build a **PhoneBook** application backed by PostgreSQL.
 
-**Requirements**:
-1. Play/Stop/Next/Previous tracks with keyboard commands
-2. Display current track information
-3. Show playback progress or track position
-4. Handle playlist management
-
-**Keyboard Controls Example**:
-- **P** = Play
-- **S** = Stop
-- **N** = Next track
-- **B** = Previous (Back)
-- **Q** = Quit
-
-**Implementation Tips**:
-- Use pygame.mixer for audio playback
-- Load multiple MP3/WAV files
-- Track current playlist position
-- Display UI with pygame.font
-
-**Repository Structure**:
-```
-Practice7/
-├── music_player/
-│   ├── main.py
-│   ├── player.py
-│   ├── music/
-│   │   ├── track1.wav
-│   │   └── track2.wav
-│   └── README.md
-```
+1. Design table(s) for the PhoneBook
+2. Implement inserting data from a CSV file
+3. Implement inserting data entered from the console (user name, phone)
+4. Implement updating a contact's first name or phone number
+5. Implement querying contacts with different filters (e.g. by name, by phone prefix)
+6. Implement deleting a contact by username or phone number
 
 ---
 
-### 3.3 Moving Ball Game
+### 3.3 Save Examples to GitHub
 
-**Objective**: Create an interactive game with a moving red ball
+Organize your code and push to your repository.
 
-**Requirements**:
-1. Display a red ball (50x50 pixels, radius 25) on white background
-2. Move ball with arrow keys (Up, Down, Left, Right)
-3. Each key press moves ball by 20 pixels
-4. Ball cannot leave the screen boundaries
-5. Ignore input that would move ball off-screen
-
-**Implementation Tips**:
-- Use pygame.draw.circle() for the ball
-- Handle keyboard events
-- Check boundary conditions before moving
-- Smooth animation with frame rate control
-
-**Repository Structure**:
+Example repository structure:
 ```
 Practice7/
-├── moving_ball/
-│   ├── main.py
-│   ├── ball.py
-│   └── README.md
+├── phonebook.py
+├── config.py
+├── connect.py
+└── contacts.csv
 ```
 
----
-
-### 3.4 Save to GitHub
-
-**Complete Repository Structure**:
-```
-Practice7/
-├── mickeys_clock/
-│   ├── main.py
-│   ├── clock.py
-│   ├── images/
-│   │   └── mickey_hand.png
-│   └── README.md
-├── music_player/
-│   ├── main.py
-│   ├── player.py
-│   ├── music/
-│   │   └── sample_tracks/
-│   └── README.md
-├── moving_ball/
-│   ├── main.py
-│   ├── ball.py
-│   └── README.md
-├── requirements.txt
-└── README.md
-```
-
-**Commit Instructions**:
+Commit instructions:
 ```bash
-# Create requirements.txt
-echo "pygame>=2.0.0" > requirements.txt
-
 git add .
-git commit -m "Add Practice7 - Pygame games: Mickey's clock, music player, moving ball"
+git commit -m "Add Practice7 - PhoneBook with PostgreSQL"
 git push origin main
 ```
 
 ---
 
-## 4. What You Must Complete?
+## 4. What You Must Complete
 
-To pass this practice, you must:
+To pass this practice you must:
 
-- ✅ Complete Mickey's Clock application with working clock hands
-- ✅ Implement Music Player with all keyboard controls
-- ✅ Create Moving Ball game with boundary checking
-- ✅ Code must be well-commented and organized
-- ✅ All three games must run without errors
-- ✅ Push all code to GitHub with clear commit messages
+- ✅ Design and create PhoneBook table(s) in PostgreSQL
+- ✅ Implement CSV-based data import
+- ✅ Implement console-based data entry
+- ✅ Implement updating contacts (name or phone)
+- ✅ Implement querying with different filters
+- ✅ Implement deleting contacts by username or phone
+- ✅ Push code to GitHub with clear commit messages
 
 **Deadline**: check MS Teams announcements
 
@@ -174,21 +112,17 @@ To pass this practice, you must:
 
 ## 5. 🛠 Troubleshooting
 
-If you encounter issues:
-
-- **Pygame Installation**: `pip install pygame`
-- **Image/Sound Loading**: Verify file paths and formats
-- **Rotation Issues**: Check angle calculation (0° = up, clockwise positive)
-- **Event Handling**: Use pygame.event.get() correctly
-- **Performance**: Check frame rate and event loop frequency
+- **Connection refused**: make sure the PostgreSQL server is running (`sudo service postgresql start` or check `pg_isready`)
+- **Authentication errors**: verify your username, password, and database name in the connection config
+- **psycopg2 not found**: install with `pip install psycopg2-binary` (or `pip3`)
+- **CSV encoding**: open CSV files with `encoding='utf-8'` to avoid decode errors
+- **Transactions**: remember to call `conn.commit()` after write operations, or use `with conn:` as a context manager
 
 ---
 
 ## 6. Resources
 
-- 📚 [Nerd Paradise Pygame Tutorial](https://nerdparadise.com/programming/pygame)
-- 📚 [Pygame Official Documentation](https://www.pygame.org/docs/)
-- 📚 [Pygame Tutorials](https://www.pygame.org/wiki/tutorials)
-- 💻 [Pygame GitHub](https://github.com/pygame/pygame)
-- 🔧 [StackOverflow - Pygame Rotation](https://stackoverflow.com/a/54714144)
-- 📚 [Real Python - Pygame Primer](https://realpython.com/pygame-a-primer/)
+- 📚 PostgreSQL Python Tutorial: https://neon.com/postgresql/postgresql-python/
+- 📚 psycopg2 Documentation: https://www.psycopg.org/docs/
+- 📚 PostgreSQL Official Docs: https://www.postgresql.org/docs/
+- 📚 Python `csv` Module: https://docs.python.org/3/library/csv.html
